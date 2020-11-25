@@ -5,7 +5,7 @@ from django.apps import AppConfig
 from .conf import settings
 from .db import patch_db
 from .templates import patch_template
-from aws_xray_sdk.core import patch, xray_recorder
+from aws_xray_sdk.core import patch, xray_recorder, sampling
 from aws_xray_sdk.core.exceptions.exceptions import SegmentNameMissingException
 
 
@@ -30,6 +30,7 @@ class XRayConfig(AppConfig):
             daemon_address=settings.AWS_XRAY_DAEMON_ADDRESS,
             sampling=settings.SAMPLING,
             sampling_rules=settings.SAMPLING_RULES,
+            sampler=settings.SAMPLER,
             context_missing=settings.AWS_XRAY_CONTEXT_MISSING,
             plugins=settings.PLUGINS,
             service=settings.AWS_XRAY_TRACING_NAME,
